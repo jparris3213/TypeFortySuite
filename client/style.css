@@ -1,0 +1,99 @@
+.export-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+#exportBtn {
+    padding: 0.5em 1.5em;
+    font-size: 1rem;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    transition: background 0.2s;
+}
+#exportBtn:hover {
+    background: #0056b3;
+}
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    min-width: 600px;
+    max-width: 800px;
+}
+#scriptEditor {
+    width: 576px; /* 8 inches at 72dpi for PDF match */
+    min-height: 400px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12pt;
+    padding: 1rem 0 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    box-sizing: border-box;
+    outline: none;
+    line-height: 1.5;
+    margin: 1rem auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    display: block;
+    position: relative;
+}
+.script-line[data-area="LOCATION"],
+.script-line[data-area="DESCRIPTION"] {
+    margin-left: calc(1.5in);
+    width: calc(7.5in - 1.5in);
+    text-align: left;
+}
+.script-line[data-area="CHARACTER"] {
+    margin-left: calc(3.5in);
+    width: calc(5.5in - 3.5in);
+    text-align: center;
+    text-transform: uppercase;
+}
+.script-line[data-area="DIALOGUE"] {
+    margin-left: calc(2.5in);
+    width: calc(5.5in - 2.5in);
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+.script-line[data-area="TRANSITION"] {
+    margin-left: calc(6in);
+    width: calc(7.5in - 6in);
+    text-align: right;
+    text-transform: uppercase;
+}
+.column-indicator {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+.column-indicator span {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    background: #eee;
+    margin-right: 0.5em;
+}
+.column-indicator .active {
+    background: #007bff;
+    color: #fff;
+}
