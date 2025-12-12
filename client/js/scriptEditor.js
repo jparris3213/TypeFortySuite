@@ -127,7 +127,7 @@ export function exportScriptAsPDF() {
     const standards = {
         LOCATION:    { left: 1.5 * 72, right: 7.5 * 72, align: 'left', caps: true },
         DESCRIPTION: { left: 1.5 * 72, right: 7.5 * 72, align: 'left', caps: false },
-        'CHARACTER': { left: 3.5 * 72, right: 5.5 * 72, align: 'center', caps: true },
+        CHARACTER: { left: 3.5 * 72, right: 5.5 * 72, align: 'center', caps: true },
         DIALOGUE:    { left: 2.5 * 72, right: 5.5 * 72, align: 'left', caps: false },
         TRANSITION:  { left: 6 * 72, right: 7.5 * 72, align: 'right', caps: true }
     };
