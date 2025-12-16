@@ -20,9 +20,18 @@ export function setupScriptEditor() {
 
     function render(highlightCurrent = false) {
         editor.innerHTML = '';
+        let lastAreaIdx = null;
         lines.forEach((line, idx) => {
             const area = AREAS[line.areaIdx];
             let text = area.caps ? line.text.toUpperCase() : line.text;
+            // Insert a blank line if category changes (except for first line)
+            if (lastAreaIdx !== null && line.areaIdx !== lastAreaIdx) {
+                let spacer = document.createElement('div');
+                spacer.className = 'script-spacer';
+                spacer.style.height = '1em';
+                spacer.innerHTML = '&nbsp;';
+                editor.appendChild(spacer);
+            }
             let div = document.createElement('div');
             div.className = 'script-line';
             div.setAttribute('data-area', area.name);
@@ -46,9 +55,16 @@ export function setupScriptEditor() {
             div.innerText = text || '\u00A0';
             if (idx === currentLine) {
                 div.contentEditable = true;
-                // highlightCurrent is now a no-op
             }
+            // Allow clicking any line to edit it
+            div.addEventListener('click', function() {
+                if (currentLine !== idx) {
+                    currentLine = idx;
+                    render();
+                }
+            });
             editor.appendChild(div);
+            lastAreaIdx = line.areaIdx;
         });
         // Always focus and set caret after render
         const divs = editor.querySelectorAll('.script-line');
@@ -136,6 +152,7 @@ export function exportScriptAsPDF() {
     // Get lines from the editor
     const editor = document.getElementById('scriptEditor');
     const divs = editor.querySelectorAll('.script-line');
+    let lastAreaName = null;
     divs.forEach((div, idx) => {
         const areaName = div.getAttribute('data-area');
         let text = div.innerText.replace(/\u00A0/g, '').trim();
@@ -146,6 +163,10 @@ export function exportScriptAsPDF() {
         let align = fmt.align;
         doc.setFont('Courier', fmt.caps ? 'bold' : 'normal');
         doc.setFontSize(12);
+        // Insert a blank line if category changes (except for first line)
+        if (lastAreaName !== null && areaName !== lastAreaName) {
+            y += lineHeight;
+        }
         // For Dialogue, manually wrap text at width and restart at 2.5" for overflow
         if (areaName === 'DIALOGUE') {
             const words = text.split(' ');
@@ -174,6 +195,7 @@ export function exportScriptAsPDF() {
             doc.addPage();
             y = 72;
         }
+        lastAreaName = areaName;
     });
     doc.save('script.pdf');
 }
