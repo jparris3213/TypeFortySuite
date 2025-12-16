@@ -1,3 +1,48 @@
+#characterbar {
+    background: #f0f0f0;
+    border-radius: 0 8px 8px 0;
+    min-width: 120px;
+    max-width: 200px;
+    padding: 1rem 0.5rem;
+    margin-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.character-link {
+    font-size: 1em;
+    color: #333;
+    padding: 0.3em 0.5em;
+    border-radius: 4px;
+    margin-bottom: 0.2em;
+    background: none;
+    font-family: inherit;
+    letter-spacing: 1px;
+    text-align: left;
+}
+#sidebar {
+    background: #f0f0f0;
+    border-radius: 8px 0 0 8px;
+    min-width: 120px;
+    max-width: 200px;
+    padding: 1rem 0.5rem;
+    margin-right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.scene-link {
+    font-size: 1em;
+    color: #333;
+    cursor: pointer;
+    padding: 0.3em 0.5em;
+    border-radius: 4px;
+    margin-bottom: 0.2em;
+    transition: background 0.2s;
+}
+.scene-link:hover {
+    background: #e0e0e0;
+}
 .export-btn-container {
     display: flex;
     justify-content: flex-end;
@@ -54,7 +99,12 @@ body {
     display: block;
     position: relative;
 }
-.script-line[data-area="LOCATION"],
+.script-line[data-area="LOCATION"] {
+    margin-left: calc(1.5in);
+    width: calc(7.5in - 1.5in);
+    text-align: left;
+    background-color: lightgrey;
+}
 .script-line[data-area="DESCRIPTION"] {
     margin-left: calc(1.5in);
     width: calc(7.5in - 1.5in);

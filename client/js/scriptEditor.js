@@ -13,6 +13,11 @@ let currentLine = 0;
 export function setupScriptEditor() {
     const editor = document.getElementById('scriptEditor');
     const areaLabel = document.getElementById('area-label');
+    // Expose script data and helpers for sidebar
+    window.lines = lines;
+    window.AREAS = AREAS;
+    window.currentLine = currentLine;
+    window.render = render;
 
     function updateAreaIndicator() {
         areaLabel.textContent = AREAS[lines[currentLine].areaIdx].name;
@@ -93,16 +98,28 @@ export function setupScriptEditor() {
             if (e.ctrlKey && e.key === '.') {
                 e.preventDefault();
                 lines[currentLine].areaIdx = (lines[currentLine].areaIdx + 1) % AREAS.length;
-                //
                 render(true);
             } else if (e.ctrlKey && e.key === ',') {
                 e.preventDefault();
                 lines[currentLine].areaIdx = (lines[currentLine].areaIdx - 1 + AREAS.length) % AREAS.length;
-                //
                 render(true);
             } else if (e.key === 'Enter') {
                 e.preventDefault();
-                lines.splice(currentLine + 1, 0, { text: '', areaIdx: 0 });
+                // Determine next areaIdx based on current line's area
+                let nextAreaIdx = 0; // Default to LOCATION
+                const currentArea = AREAS[lines[currentLine].areaIdx].name;
+                if (currentArea === 'LOCATION') {
+                    nextAreaIdx = AREAS.findIndex(a => a.name === 'DESCRIPTION');
+                } else if (currentArea === 'DESCRIPTION') {
+                    nextAreaIdx = AREAS.findIndex(a => a.name === 'CHARACTER');
+                } else if (currentArea === 'CHARACTER') {
+                    nextAreaIdx = AREAS.findIndex(a => a.name === 'DIALOGUE');
+                } else if (currentArea === 'DIALOGUE') {
+                    nextAreaIdx = AREAS.findIndex(a => a.name === 'DESCRIPTION');
+                } else {
+                    nextAreaIdx = 0; // fallback to LOCATION
+                }
+                lines.splice(currentLine + 1, 0, { text: '', areaIdx: nextAreaIdx });
                 currentLine++;
                 render();
             } else if (e.key === 'ArrowUp') {
