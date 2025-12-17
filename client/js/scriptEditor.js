@@ -1,9 +1,9 @@
 
 const AREAS = [
     { name: 'LOCATION', align: 'left', caps: true, width: '100%' },
-    { name: 'DESCRIPTION', align: 'left', caps: false, width: '' },
+    { name: 'DESCRIPTION', align: 'left', caps: false, width: '75' },
     { name: 'CHARACTER', align: 'center', caps: true, width: '40%' },
-    { name: 'DIALOGUE', align: 'center', caps: false, width: '33%' },
+    { name: 'DIALOGUE', align: 'center', caps: false, width: '45%' },
     { name: 'TRANSITION', align: 'right', caps: true, width: '100%' }
 ];
 
@@ -152,6 +152,33 @@ export function setupScriptEditor() {
 }
 
 // Export script as PDF with identical formatting
+export function getScriptJSON() {
+    // Always export from the global lines array for consistency
+    return JSON.parse(JSON.stringify(window.lines || lines));
+}
+
+export function loadScriptJSON(json) {
+    if (!Array.isArray(json)) {
+        alert('Invalid script JSON format.');
+        return;
+    }
+    lines.length = 0;
+    json.forEach(obj => {
+        if (typeof obj === 'object' && 'text' in obj && 'areaIdx' in obj) {
+            lines.push({ text: obj.text, areaIdx: obj.areaIdx });
+        }
+    });
+    if (lines.length === 0) lines.push({ text: '', areaIdx: 0 });
+    currentLine = 0;
+    window.lines = lines;
+    window.currentLine = currentLine;
+    if (typeof window.render === 'function') {
+        window.render();
+    } else {
+        render();
+    }
+}
+
 export function exportScriptAsPDF() {
     // Use jsPDF to export the script with new formatting standards
     const { jsPDF } = window.jspdf;

@@ -1,3 +1,36 @@
+/* Top navigation bar */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 1rem 0 0.5rem 0;
+    z-index: 1000;
+}
+.container-row {
+    display: flex;
+    flex-direction: row;
+    margin-top: 4.5rem;
+}
+.top-nav a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.3em 1.2em;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+}
+.top-nav a:hover {
+    background: #e3eafc;
+    color: #0056b3;
+}
 #characterbar {
     background: #f0f0f0;
     border-radius: 0 8px 8px 0;
